@@ -1,6 +1,8 @@
 # GBD_2024
 Arquivos .SQL da disciplina de GBD
 
+Alguns vídeos: https://www.youtube.com/watch?v=3WlXpR2DJro&list=PLgBN8IKWHGAfugm2RRWpaa-hPq44lr-2j
+
 # Comandos Básicos
 
 Baseado em https://www.w3schools.com/sql/default.asp
