@@ -154,9 +154,13 @@ Baseado em: https://www.pg4e.com/lectures/02-Database-Design-Many-to-Many.txt
 # Guia: Banco de Dados Musical e Relacionamentos Many-to-Many com PostgreSQL
 
 ## 1. Configuração do Banco
+````
 
 ```bash
 sudo -u postgres psql postgres
+```
+
+```sql
 \l       -- lista os bancos de dados
 -- Usuário já deve ter sido criado: CREATE USER aulamdb WITH PASSWORD 'secret';
 CREATE DATABASE music WITH OWNER 'aulamdb' ENCODING 'UTF8';
