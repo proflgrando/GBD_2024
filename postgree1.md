@@ -145,16 +145,13 @@ INSERT INTO users (name, email) VALUES ('Carla', 'carla@email.com');
 ```
 
 ---
+# Guia: Banco de Dados Musical e Relacionamentos Many-to-Many com PostgreSQL
 
 Baseado em: https://www.pg4e.com/lectures/02-Database-Design-Many-to-Many.txt
 
----
-
-````markdown
-# Guia: Banco de Dados Musical e Relacionamentos Many-to-Many com PostgreSQL
 
 ## 1. Configuração do Banco
-````
+---
 
 ```bash
 sudo -u postgres psql postgres
