@@ -77,6 +77,10 @@ INSERT INTO users (name, email) VALUES ('Felipe', 'felipe@email.com');
 ```sql
 DELETE FROM users WHERE email='diego@email.com';
 
+-- Exemplo errado (vai gerar erro de sintaxe, pois SQL espera aspas simples para strings)
+UPDATE users SET name="Ana Paula" WHERE email='ana@email.com';
+
+-- Exemplo correto (No PostgreSQL (e na maioria dos bancos em modo padrão ANSI), as aspas duplas " são reservadas para nomes de colunas ou tabelas.)
 UPDATE users SET name='Ana Paula' WHERE email='ana@email.com';
 ```
 
@@ -138,7 +142,3 @@ INSERT INTO users (name, email) VALUES ('Carla', 'carla@email.com');
 ```
 
 ---
-
-📌 Esse documento já está formatado em **Markdown** e pode ser colado diretamente no GitHub, Moodle ou qualquer editor Markdown.
-
-Quer que eu também prepare uma **versão em PDF** para distribuir aos alunos, ou prefere só esse Markdown mesmo?
