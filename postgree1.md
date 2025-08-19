@@ -131,7 +131,7 @@ INSERT INTO users (name, email) VALUES ('Bruno', 'bruno@email.com');
 INSERT INTO users (name, email) VALUES ('Carla', 'carla@email.com');
 ```
 
-Consultando registros:
+Consultando registros (observe que o campo SERIAL é fornecido automaticamente):
 
 ```sql
 SELECT * FROM users;
