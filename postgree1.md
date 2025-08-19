@@ -6,6 +6,8 @@ Baseado em: https://www.pg4e.com/lectures/01-Intro-to-SQL.txt
 
 ```bash
 sudo -u postgres psql postgres
+```
+```sql
 \l       -- lista os bancos de dados
 CREATE USER aulamdb WITH PASSWORD 'secret';
 CREATE DATABASE people WITH OWNER 'aulamdb' ENCODING 'UTF8';
