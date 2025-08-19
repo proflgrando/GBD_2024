@@ -1,86 +1,144 @@
-Python for Everybody Database Handout
+# Guia: Criando e Manipulando Banco de Dados com PostgreSQL
 
-https://www.pg4e.com/lectures/01-Intro-to-SQL.txt
+Baseado em: https://www.pg4e.com/lectures/01-Intro-to-SQL.txt
 
-Setup - Making a Database / User:
+## 1. Configuração – Criando Banco de Dados / Usuário
 
-Note:  --- is the start of a comment - do not include these
-
+```bash
 sudo -u postgres psql postgres
-\l       -- list databases
+\l       -- lista os bancos de dados
 CREATE USER aulamdb WITH PASSWORD 'secret';
 CREATE DATABASE people WITH OWNER 'aulamdb' ENCODING 'UTF8';
-SHOW hba_file; --- necessário incluir no arquivo pg_hba.conf as permissões para o usuário 'aulamdb' 
+SHOW hba_file; -- necessário incluir no arquivo pg_hba.conf as permissões para o usuário 'aulamdb'
+```
 
-No meu caso (usando Linux Pop_OS! 22.04):
-postgres-# ;
-              hba_file               
--------------------------------------
- /etc/postgresql/14/main/pg_hba.conf
+No Linux (Pop\_OS! 22.04, por exemplo), o caminho do arquivo costuma ser:
 
+```
+/etc/postgresql/14/main/pg_hba.conf
+```
 
-\q       -- quit
+Edite com:
 
-No terminal, caso esteja usando Linux:
+```bash
 sudo gedit /etc/postgresql/14/main/pg_hba.conf
+```
 
-<img width="701" height="223" alt="image" src="https://github.com/user-attachments/assets/2ac1c8cd-6a90-4524-a3c6-15a10af748e9" />
+<img width="701" height="540" alt="image" src="https://github.com/user-attachments/assets/edb74f54-506a-464b-a6ba-51cab0220fbe" />
 
+Depois, reinicie o PostgreSQL:
 
+```bash
+sudo systemctl restart postgresql
+```
 
-Salvar o arquivo
+---
 
-Running SQL Commands:
+## 2. Acessando o Banco
 
+```bash
 psql people aulamdb
+```
 
-\dt      -- List relations (tables)
+Ver tabelas:
 
-CREATE TABLE users( name VARCHAR(128), email VARCHAR(128) );
+```sql
+\dt
+```
 
-INSERT INTO users (name, email) VALUES ('Chuck', 'csev@umich.edu');
-INSERT INTO users (name, email) VALUES ('Colleen', 'cvl@umich.edu');
-INSERT INTO users (name, email) VALUES ('Ted', 'ted@umich.edu');
-INSERT INTO users (name, email) VALUES ('Sally', 'a1@umich.edu');
-INSERT INTO users (name, email) VALUES ('Ted', 'ted@umich.edu');
-INSERT INTO users (name, email) VALUES ('Kristen', 'kf@umich.edu');
+---
 
-DELETE FROM users WHERE email='ted@umich.edu';
+## 3. Criando Tabela
 
-UPDATE users SET name="Charles" WHERE email='csev@umich.edu';
+```sql
+CREATE TABLE users(
+    name VARCHAR(128),
+    email VARCHAR(128)
+);
+```
 
+---
+
+## 4. Inserindo Dados
+
+```sql
+INSERT INTO users (name, email) VALUES ('Ana', 'ana@email.com');
+INSERT INTO users (name, email) VALUES ('Bruno', 'bruno@email.com');
+INSERT INTO users (name, email) VALUES ('Carla', 'carla@email.com');
+INSERT INTO users (name, email) VALUES ('Diego', 'diego@email.com');
+INSERT INTO users (name, email) VALUES ('Eva', 'eva@email.com');
+INSERT INTO users (name, email) VALUES ('Felipe', 'felipe@email.com');
+```
+
+---
+
+## 5. Alterando e Removendo Registros
+
+```sql
+DELETE FROM users WHERE email='diego@email.com';
+
+UPDATE users SET name='Ana Paula' WHERE email='ana@email.com';
+```
+
+---
+
+## 6. Consultas
+
+```sql
 SELECT * FROM users;
 
-SELECT * FROM users WHERE email='csev@umich.edu';
+SELECT * FROM users WHERE email='ana@email.com';
 
 SELECT * FROM users ORDER BY email;
 
 SELECT * FROM users ORDER BY name DESC;
 
-SELECT * FROM users WHERE name LIKE '%e%';
+SELECT * FROM users WHERE name LIKE '%a%';
 
 SELECT * FROM users ORDER BY email DESC LIMIT 2;
 SELECT * FROM users ORDER BY email OFFSET 1 LIMIT 2;
 
 SELECT COUNT(*) FROM users;
-SELECT COUNT(*) FROM users WHERE email='csev@umich.edu';
+SELECT COUNT(*) FROM users WHERE email='ana@email.com';
+```
 
+---
+
+## 7. Usando Chave Primária e Campo Único
+
+```sql
 DROP TABLE users;
 
 CREATE TABLE users (
-  id SERIAL, 
-  name VARCHAR(128), 
+  id SERIAL,
+  name VARCHAR(128),
   email VARCHAR(128) UNIQUE,
   PRIMARY KEY(id)
 );
+```
 
-INSERT INTO users (name, email) VALUES ('Chuck', 'csev@umich.edu');
-INSERT INTO users (name, email) VALUES ('Colleen', 'cvl@umich.edu');
-INSERT INTO users (name, email) VALUES ('Ted', 'ted@umich.edu');
+Inserindo registros:
 
--- Note the SERIAL field auto-supplied
-SELECT * from users;
+```sql
+INSERT INTO users (name, email) VALUES ('Ana', 'ana@email.com');
+INSERT INTO users (name, email) VALUES ('Bruno', 'bruno@email.com');
+INSERT INTO users (name, email) VALUES ('Carla', 'carla@email.com');
+```
 
--- Watch for failure due to UNIQUE
-INSERT INTO users (name, email) VALUES ('Ted', 'ted@umich.edu');
+Consultando registros:
 
+```sql
+SELECT * FROM users;
+```
+
+Tentativa de duplicar (vai falhar por conta do `UNIQUE`):
+
+```sql
+INSERT INTO users (name, email) VALUES ('Carla', 'carla@email.com');
+```
+
+---
+
+📌 Esse documento já está formatado em **Markdown** e pode ser colado diretamente no GitHub, Moodle ou qualquer editor Markdown.
+
+Quer que eu também prepare uma **versão em PDF** para distribuir aos alunos, ou prefere só esse Markdown mesmo?
