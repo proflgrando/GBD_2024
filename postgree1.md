@@ -14,7 +14,7 @@ CREATE DATABASE people WITH OWNER 'aulamdb' ENCODING 'UTF8';
 SHOW hba_file; -- necessário incluir no arquivo pg_hba.conf as permissões para o usuário 'aulamdb'
 ```
 
-No Linux (Pop\_OS! 22.04, por exemplo), o caminho do arquivo costuma ser:
+No Linux (Pop_OS! 22.04, por exemplo), o caminho do arquivo costuma ser:
 
 ```
 /etc/postgresql/14/main/pg_hba.conf
