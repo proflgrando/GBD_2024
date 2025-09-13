@@ -7,13 +7,13 @@ show databases;
 use supermercado;
 
 create table estoque (
-    -> ID int Not null auto_increment,
-    -> NOME VARCHAR(255) NOT NULL,
-    -> MARCA VARCHAR(255),
-    -> UNIDADE VARCHAR(255),
-    -> QUANTIDADE INT,
-    -> PRIMARY KEY (ID) )
-    -> ;
+     ID int Not null auto_increment,
+     NOME VARCHAR(255) NOT NULL,
+     MARCA VARCHAR(255),
+     UNIDADE VARCHAR(255),
+     QUANTIDADE INT,
+     PRIMARY KEY (ID) )
+     ;
 	
 show tables;
 

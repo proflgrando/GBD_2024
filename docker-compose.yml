@@ -1,0 +1,19 @@
+services:
+
+    
+    db:
+        image: mysql:9.4 
+        container_name: gbd_mysql 
+        environment: 
+            MYSQL_ROOT_PASSWORD: rootpass 
+            MYSQL_DATABASE: gbd_db 
+            MYSQL_USER: gbd_user 
+            MYSQL_PASSWORD: gbd_pass 
+        volumes:
+            - mysql-data:/var/lib/mysql
+            - ./docker/init.sql:/docker-entrypoint-initdb.d/0_init.sql:ro
+        ports:
+            - "3306:3306"
+
+volumes:
+    mysql-data: {}
