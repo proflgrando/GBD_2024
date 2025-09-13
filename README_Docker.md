@@ -1,8 +1,13 @@
 # AMBIENTE DOCKER PARA EXECUTAR OS SCRIPTS
 
-Criamos um docker compose para criar um abiente que possamos executar os códigos sql com MySql
+Criamos um docker compose para criar um ambiente que possamos executar os códigos sql com MySql
+
+***IMPORTANTE:***
+Caso não tenha docker instalado na máquina local, você pode trabalhar no [Docker Playground](https://labs.play-with-docker.com/) (*Limitação de 4h logado e autenticar conta github a cada instância para fazer o push dos arquivos*)
+**Ou Executar através do Codespace no Github**
 
 ## PRÉ-REQUISITOS
+
 - Docker instalado na máquina.
 - Arquivos na estrutura <br>
 <pre lang="md"> ├──docker-compose.yml 
