@@ -189,3 +189,78 @@ FROM member m
 JOIN student s ON m.student_id = s.id
 JOIN course c ON m.course_id = c.id
 ORDER BY curso, papel DESC, estudante;
+
+-- ============================================
+-- EXEMPLOS DE JOINs E VIEWs
+-- ============================================
+
+-- 1️⃣ JOIN 1:N: Listar faixas com álbum e artista
+-- Explicação:
+-- Cada faixa (track) pertence a um álbum (album)
+-- Cada álbum pertence a um artista (artist)
+-- Para mostrar faixa + álbum + artista, precisamos juntar as três tabelas usando JOIN
+SELECT t.title AS faixa,         -- Nome da faixa
+       al.title AS album,        -- Nome do álbum
+       a.name AS artista         -- Nome do artista
+FROM track t
+JOIN album al ON t.album_id = al.id       -- Relaciona a faixa com o álbum
+JOIN artist a ON al.artist_id = a.id     -- Relaciona o álbum com o artista
+ORDER BY artista, album, faixa;
+
+-- 2️⃣ JOIN N:M: Listar alunos com cursos e papéis
+-- Explicação:
+-- Um aluno pode ter vários cursos e um curso pode ter vários alunos
+-- A tabela 'member' conecta student e course (N:M)
+-- O JOIN permite recuperar dados de todas as tabelas relacionadas
+SELECT s.name AS aluno,
+       c.title AS curso,
+       CASE m.role
+           WHEN 1 THEN 'Instrutor'
+           ELSE 'Aluno'
+       END AS papel
+FROM member m
+JOIN student s ON m.student_id = s.id     -- Conecta aluno
+JOIN course c ON m.course_id = c.id      -- Conecta curso
+ORDER BY curso, papel DESC, aluno;
+
+-- 3️⃣ Criando uma VIEW de faixas com artistas e gêneros
+-- Explicação:
+-- Uma VIEW é uma "tabela virtual" que armazena o resultado de uma consulta
+-- Ela facilita consultas futuras sem precisar escrever JOINs repetidamente
+CREATE VIEW vw_tracks AS
+SELECT t.title AS faixa,
+       al.title AS album,
+       a.name AS artista,
+       g.name AS genero
+FROM track t
+JOIN album al ON t.album_id = al.id
+JOIN artist a ON al.artist_id = a.id
+JOIN genre g ON t.genre_id = g.id;
+
+-- Consultando a VIEW criada
+-- Agora podemos usar a view como se fosse uma tabela
+-- Por exemplo, listar todas as faixas de 'Progressive Rock'
+SELECT * FROM vw_tracks
+WHERE genero = 'Progressive Rock';
+
+-- 4️⃣ Criando uma VIEW de alunos com cursos
+-- Explicação:
+-- Simplifica consultas frequentes sobre alunos e cursos
+-- Mostra também o papel (Instrutor ou Aluno)
+CREATE VIEW vw_student_courses AS
+SELECT s.name AS aluno,
+       c.title AS curso,
+       CASE m.role
+           WHEN 1 THEN 'Instrutor'
+           ELSE 'Aluno'
+       END AS papel
+FROM member m
+JOIN student s ON m.student_id = s.id
+JOIN course c ON m.course_id = c.id;
+
+-- Consultando a VIEW
+-- Exemplo: mostrar apenas instrutores
+SELECT * FROM vw_student_courses
+WHERE papel = 'Instrutor';
+
+
